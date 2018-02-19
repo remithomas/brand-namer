@@ -1,0 +1,20 @@
+{
+  "name": "brand-namer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Remi THOMAS",
+  "license": "MIT",
+  "scripts": {
+    "start": "bsb -make-world -w",
+    "build": "webpack -w",
+    "clean": "bsb -clean-world"
+  },
+  "devDependencies": {
+    "bs-platform": "^2.2.1",
+    "webpack": "^3.11.0"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "reason-react": "^0.3.2"
+  }
+}
