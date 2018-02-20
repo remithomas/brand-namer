@@ -1,4 +1,4 @@
-defaults:
+defaults: &defaults
     working_directory: /tmp
     docker:
         - image: circleci/node:8.9.4
