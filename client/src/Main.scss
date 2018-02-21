@@ -1,0 +1,7 @@
+@import 'variables';
+@import 'BrandNamerApp';
+@import 'components/**/*.scss';
+
+body {
+  background: $backgroundColor;
+}

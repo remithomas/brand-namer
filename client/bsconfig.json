@@ -5,5 +5,10 @@
     },
     "refmt": 3,
     "bs-dependencies": ["reason-react"],
-    "sources": "src"
+    "sources": [
+        {
+            "dir" : "src",
+            "subdirs": true
+        }
+    ]
 }
