@@ -1,3 +1,11 @@
-.BrandNamerApp {
-  padding: 20px;
+.brand-namer-app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.brand-namer-app-container {
+  width: 100%;
+  max-width: 800px;
 }

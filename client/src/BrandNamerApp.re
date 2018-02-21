@@ -1,11 +1,12 @@
-/* [%bs.raw {|require('./BrandNamerApp.scss')|}]; */
-
 let component = ReasonReact.statelessComponent("BrandNamerApp");
 
-let make = (children) => {
+let make = (_children) => {
   ...component,
   render: (_self) =>
-    <div className="BrandNamerApp">
-      <div className="title"> (ReasonReact.stringToElement("Brand namer")) </div>
+    <div className="brand-namer-app">
+      <div className="brand-namer-app-container">
+        <Title title="Brand Namer" />
+        <BrandNamer />
+      </div>
     </div>
 };
