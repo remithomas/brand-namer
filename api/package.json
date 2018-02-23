@@ -4,6 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "node": "node lib/js/src/index.js",
+    "nodemon": "nodemon lib/js/src/index.js",
+    "start": "npm run clean; bsb -make-world -w",
+    "clean": "bsb -clean-world",
     "test": "exit;"
+  },
+  "dependencies": {
+    "bs-express": "^0.4.0",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "bs-platform": "^2.2.1"
   }
 }
