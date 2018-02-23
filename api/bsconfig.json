@@ -1,0 +1,14 @@
+{
+    "name" : "brand-namer-api",
+    "bsc-flags": [
+        "-bs-super-errors"
+    ],
+    "refmt": 3,
+    "bs-dependencies": ["bs-express"],
+    "sources": [
+        {
+            "dir" : "src",
+            "subdirs": true
+        }
+    ]
+}
