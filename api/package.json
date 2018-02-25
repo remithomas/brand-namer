@@ -15,6 +15,7 @@
     "express": "^4.16.2"
   },
   "devDependencies": {
+    "@glennsl/bs-json": "^1.1.2",
     "bs-platform": "^2.2.1"
   }
 }

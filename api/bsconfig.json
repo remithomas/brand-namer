@@ -4,7 +4,10 @@
         "-bs-super-errors"
     ],
     "refmt": 3,
-    "bs-dependencies": ["bs-express"],
+    "bs-dependencies": [
+        "bs-express",
+        "@glennsl/bs-json"
+    ],
     "sources": [
         {
             "dir" : "src",
