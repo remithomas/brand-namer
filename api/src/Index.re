@@ -11,8 +11,6 @@ Middleware.from(
 
 App.get(app, ~path="/api/namer/:term") @@
 Middleware.from(
-  /* (_next, _request) => Response.sendJson(Utils.makeSuccessJson()) */
-
   (next, request, resource) =>
     switch (Utils.getDictString(Request.params(request), "term")) {
       | None => next(Next.route, resource)
