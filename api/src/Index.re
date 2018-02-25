@@ -1,19 +1,23 @@
 open Express;
 
-let appPort = 3001; 
-
-/* make a common JSON object representing success */
-let makeSuccessJson = () => {
-  let json = Js.Dict.empty();
-  Js.Dict.set(json, "success", Js.Json.boolean(Js.true_));
-  Js.Json.object_(json)
-};
+let appPort = 3001;
 
 let app = express();
 
 App.get(app, ~path="/") @@
 Middleware.from(
-  (_next, _req) => Response.sendJson(makeSuccessJson())
+  (_next, _request) => Response.sendJson(Utils.makeSuccessJson())
+);
+
+App.get(app, ~path="/api/namer/:term") @@
+Middleware.from(
+  (next, request, resource) =>
+    switch (Utils.getDictString(Request.params(request), "term")) {
+      | None => next(Next.route, resource)
+      | Some(term) => Namer.namer(term)
+        |> (namings) => Namer.encodeNamingToJson(namings)
+        |> (json) => Response.sendJson(json, resource)
+    }
 );
 
 let onListen = (port, e) =>
@@ -24,4 +28,4 @@ let onListen = (port, e) =>
   | _ => Js.log @@ "Listening at http://127.0.0.1:" ++ string_of_int(port)
   };
 
-App.listen(app,  ~port=appPort, ~onListen=onListen(appPort), ());
+App.listen(app, ~port=appPort, ~onListen=onListen(appPort), ());
