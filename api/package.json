@@ -7,10 +7,10 @@
   "scripts": {
     "node": "node lib/js/src/index.js",
     "nodemon": "nodemon lib/js/src/index.js",
-    "start": "npm run clean; bsb -make-world -w",
-    "build": "npm run clean; bsb -make-world",
+    "start": "yarn run clean; bsb -make-world -w",
+    "build": "yarn run clean; bsb -make-world",
     "clean": "bsb -clean-world",
-    "test": "yarn run build && jest --coverage && npm run coverage"
+    "test": "yarn run build && jest --coverage"
   },
   "dependencies": {
     "@glennsl/bs-json": "^1.1.2",
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.4.2",
+    "jest": "^22.4.2",
     "nodemon": "^1.15.1"
   }
 }
