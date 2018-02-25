@@ -6,6 +6,7 @@ jobs:
             - image: circleci/node:8.9.4
         steps:
             - checkout
+            - sudo yarn global add bs-platform
 
             # Client build
             # Download and cache dependencies
