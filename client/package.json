@@ -5,7 +5,8 @@
   "author": "Remi THOMAS",
   "license": "MIT",
   "scripts": {
-    "start": "npm run clean; bsb -make-world -w",
+    "start": "bsb -make-world -w",
+    "start:simple": "bsb -make-world",
     "build": "webpack -w",
     "clean": "bsb -clean-world",
     "test": "exit;"

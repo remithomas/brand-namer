@@ -8,10 +8,18 @@
         "bs-express",
         "@glennsl/bs-json"
     ],
+    "bs-dev-dependencies": [
+        "@glennsl/bs-jest"
+    ],
     "sources": [
         {
             "dir" : "src",
             "subdirs": true
+        },
+        {
+          "dir": "__tests__",
+          "subdirs": true,
+          "type": "dev"
         }
     ]
 }

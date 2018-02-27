@@ -1,21 +1,26 @@
 {
+  "author": "Remi THOMAS <remi.thomas@yahoo.fr>",
   "name": "api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib/js/src/index.js",
   "license": "MIT",
   "scripts": {
     "node": "node lib/js/src/index.js",
     "nodemon": "nodemon lib/js/src/index.js",
-    "start": "npm run clean; bsb -make-world -w",
+    "start": "bsb -make-world -w",
+    "build": "bsb -make-world",
     "clean": "bsb -clean-world",
-    "test": "exit;"
+    "test": "yarn run build && jest --coverage"
   },
   "dependencies": {
+    "@glennsl/bs-json": "^1.1.2",
     "bs-express": "^0.4.0",
+    "bs-platform": "^2.2.1",
     "express": "^4.16.2"
   },
   "devDependencies": {
-    "@glennsl/bs-json": "^1.1.2",
-    "bs-platform": "^2.2.1"
+    "@glennsl/bs-jest": "^0.4.2",
+    "jest": "^22.4.2",
+    "nodemon": "^1.15.1"
   }
 }
