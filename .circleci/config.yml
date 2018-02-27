@@ -4,9 +4,14 @@ jobs:
     build:
         docker:
             - image: circleci/node:8.9.4
+
+        working_directory: ~/brand-namer
+
         steps:
             - checkout
-            - sudo yarn global add bs-platform
+
+            # - run: sudo npm install -g bs-platform
+            - run: yarn global add bs-platform
 
             # Client build
             # Download and cache dependencies
@@ -19,8 +24,10 @@ jobs:
             - save_cache:
                 paths:
                     - ./client/node_modules
+                    - ./client/lib
                 key: v1-client-dependencies-{{ checksum "client/package.json" }}
-            - run: cd ./api/ && yarn test
+            - run: cd ./client/ && yarn run start:simple
+            - run: cd ./client/ && yarn test
 
             # Api build
             # Download and cache dependencies
@@ -33,5 +40,7 @@ jobs:
             - save_cache:
                 paths:
                     - ./api/node_modules
+                    - ./api/lib
                 key: v1-api-dependencies-{{ checksum "api/package.json" }}
+            - run: cd ./api/ && yarn run build
             - run: cd ./api/ && yarn test
