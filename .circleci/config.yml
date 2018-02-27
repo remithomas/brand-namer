@@ -24,7 +24,6 @@ jobs:
             - save_cache:
                 paths:
                     - ./client/node_modules
-                    - ./client/lib
                 key: v1-client-dependencies-{{ checksum "client/package.json" }}
             - run: cd ./client/ && yarn run start:simple
             - run: cd ./client/ && yarn test
@@ -40,7 +39,6 @@ jobs:
             - save_cache:
                 paths:
                     - ./api/node_modules
-                    - ./api/lib
                 key: v1-api-dependencies-{{ checksum "api/package.json" }}
             - run: cd ./api/ && yarn run build
             - run: cd ./api/ && yarn test
