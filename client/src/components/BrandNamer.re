@@ -1,12 +1,16 @@
 let component = ReasonReact.statelessComponent("BrandNamer");
 
+let handleSubmitForm = (value) => {
+  Js.log("submit !!");
+  Js.log(value);
+};
+
 let make = (_children) => {
   ...component,
   render: (_self) =>
     <div className="brand-namer">
-      <label>
-        (ReasonReact.stringToElement("Choose your possible name"))
-        <Input />
-      </label>
+      <BrandNamerForm
+        onSubmit=(value => handleSubmitForm(value))
+      />
     </div>
 };

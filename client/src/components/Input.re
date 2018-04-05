@@ -1,29 +1,41 @@
 type state = {
-  value: string
+  value: string,
+  valueFieldRef: ref(option(Dom.element)),
 };
 
 type action =
   | Change(string);
 
+let setValueFieldRef = (r, {ReasonReact.state}) =>
+  state.valueFieldRef := Js.Nullable.toOption(r);
+
 let component = ReasonReact.reducerComponent("Input");
 
-let make = (_children) => {
+let make = (
+  ~onChange,
+  _children
+) => {
   ...component,
 
   initialState: () => {
-    value: ""
+    value: "",
+    valueFieldRef: ref(None),
   },
 
   reducer: action =>
     switch (action) {
-    | Change(text) => (
-      state => ReasonReact.Update({...state, value: text})
-    )
+    | Change(text) =>
+      (state) => 
+        ReasonReact.UpdateWithSideEffects(
+          {...state, value: text},
+          (_self => onChange(text)),
+        );
   },
 
-  render: ({state, send}) =>
+  render: ({state, handle, send}) =>
     <div className="input">
       <input
+        ref=(handle(setValueFieldRef))
         className="input-input"
         value=state.value
         onChange=(
