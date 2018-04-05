@@ -1,7 +1,5 @@
 open Express;
 
-let appPort = 3001;
-
 let app = express();
 
 App.get(app, ~path="/") @@
@@ -28,4 +26,4 @@ let onListen = (port, e) =>
   | _ => Js.log @@ "Listening at http://127.0.0.1:" ++ string_of_int(port)
   };
 
-App.listen(app, ~port=appPort, ~onListen=onListen(appPort), ());
+App.listen(app, ~port=Constants.appPort, ~onListen=onListen(Constants.appPort), ());
