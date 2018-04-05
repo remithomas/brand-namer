@@ -1,12 +1,9 @@
 let component = ReasonReact.statelessComponent("BrandNamer");
 
-let handleSubmitForm = (name) => {
-  let search = {
-    "name": name,
-  };
-
+let handleSubmitForm = (term) => {
+  let apiUrlNamerTerm = Constants.apiUrlNamer ++ "/" ++ term;
   Js.Promise.(
-    Axios.postData(Constants.apiUrlNamer, {search})
+    Axios.get(apiUrlNamerTerm)
     |> then_((response) => resolve(Js.log(response##data)))
     |> catch((error) => resolve(Js.log(error)))
   );

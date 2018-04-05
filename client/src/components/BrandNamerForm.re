@@ -4,7 +4,6 @@ type action =
 
 type state = {
   searchText: string,
-  searchFieldRef: ref(option(Dom.element)),
 };
 
 let component = ReasonReact.reducerComponent("BrandNamerForm");
@@ -18,7 +17,7 @@ let make = (
       | "" => ReasonReact.NoUpdate
       | nonEmptyValue =>
         ReasonReact.UpdateWithSideEffects(
-          {...state, searchText: nonEmptyValue},
+          {searchText: nonEmptyValue},
           (_self => onSubmit(nonEmptyValue)),
         )
       };
@@ -29,13 +28,12 @@ let make = (
   
     initialState: () => {
       searchText: "",
-      searchFieldRef: ref(None),
     },
   
     reducer: action =>
       switch (action) {
       | Submit => submitHelper
-      | Change(text) => state => ReasonReact.Update({...state, searchText: text})
+      | Change(text) => _state => ReasonReact.Update({searchText: text})
       },
   
     render: ({send}) => {
