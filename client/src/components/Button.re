@@ -4,7 +4,7 @@ type buttonType =
   | Button
   | Submit;
 
-let make = (~type_: buttonType, children) => {
+let make = (~type_: buttonType = Button, children) => {
   ...component,
 
   render: (_self) => {

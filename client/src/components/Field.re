@@ -5,7 +5,7 @@ let make = (
   ...componentField,
 
   render: (_self) =>
-    <div className="brand-namer">
+    <div className="field">
       <label>
         (ReasonReact.stringToElement(label))
         {component}
