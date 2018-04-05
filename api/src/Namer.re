@@ -1,3 +1,5 @@
+open GCloud;
+
 type naming = {
   term: string
 };
@@ -14,4 +16,14 @@ let encodeNamingToJson = (namings) => {
       ("term", string(namings.term))
     ])
   )
+};
+
+let translateTerm = (term: string, language: string) => {
+  let translater = Translate.createTranslate();
+
+  Js.Promise.(
+    Translate.translate(translater, "à traduire")
+    |> then_((response) => resolve(Js.log(response##translations)))
+    |> catch((error) => resolve(Js.log(error)))
+  );
 };

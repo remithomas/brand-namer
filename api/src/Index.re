@@ -7,7 +7,7 @@ Middleware.from(
   (_next, _request) => Response.sendJson(Utils.makeSuccessJson())
 );
 
-App.get(app, ~path="/api/namer/:term") @@
+/* App.get(app, ~path="/api/namer/:term") @@
 Middleware.from(
   (next, request, resource) =>
     switch (Utils.getDictString(Request.params(request), "term")) {
@@ -15,6 +15,22 @@ Middleware.from(
       | Some(term) => Namer.namer(term)
         |> (namings) => Namer.encodeNamingToJson(namings)
         |> (json) => Response.sendJson(json, resource)
+    }
+
+    /* Namer.translateTerm(term) |>  */
+); */
+
+App.get(app, ~path="/api/namer/:term") @@
+Middleware.from(
+  (next, request, resource) =>
+    switch (Utils.getDictString(Request.params(request), "term")) {
+      | None => next(Next.route, resource)
+      | Some(term) => Response.sendJson(Utils.makeSuccessJson())
+        /* Js.Promise.(
+          Namer.translateTerm(term)
+          |> then_((response) => resolve(Js.log(response##data)))
+          |> catch((error) => resolve(Js.log(error)))
+        ); */
     }
 );
 
@@ -26,4 +42,9 @@ let onListen = (port, e) =>
   | _ => Js.log @@ "Listening at http://127.0.0.1:" ++ string_of_int(port)
   };
 
-App.listen(app, ~port=Constants.appPort, ~onListen=onListen(Constants.appPort), ());
+App.listen(
+  app,
+  ~port=Constants.appPort,
+  ~onListen=onListen(Constants.appPort),
+  ()
+);
