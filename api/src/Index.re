@@ -9,19 +9,6 @@ Middleware.from(
   (_next, _request) => Response.sendJson(Utils.makeSuccessJson())
 );
 
-/* App.get(app, ~path="/api/namer/:term") @@
-Middleware.from(
-  (next, request, resource) =>
-    switch (Utils.getDictString(Request.params(request), "term")) {
-      | None => next(Next.route, resource)
-      | Some(term) => Namer.namer(term)
-        |> (namings) => Namer.encodeNamingToJson(namings)
-        |> (json) => Response.sendJson(json, resource)
-    }
-
-    /* Namer.translateTerm(term) |>  */
-); */
-
 App.get(app, ~path="/api/namer/:term") @@
 PromiseMiddleware.from(
   (next, request, resource) =>
@@ -35,14 +22,6 @@ PromiseMiddleware.from(
           )
           /* |> catch((error) => Js.Promise.resolve(next(Next.error(castToErr(error), resource)))) */
         )
-        /* |> (_) =>  Namer.namer(term) */
-        /* |> (namings) => Namer.encodeNamingToJson(namings) */
-        /* |> (json) => Response.sendJson(json, resource) */
-        /* Js.Promise.(
-          Namer.translateTerm(term)
-          |> then_((response) => resolve(Js.log(response##data)))
-          /* |> catch((error) => resolve(Js.log(error))) */
-        ); */
     }
 );
 

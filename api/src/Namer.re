@@ -5,6 +5,8 @@ type naming = {
   translations: array(string)
 };
 
+exception TranslationError(string);
+
 let namer = (term: string, translations: array(string)) => {
   {
     term,
@@ -23,8 +25,7 @@ let encodeNamingToJson = (namingData) => {
 
 let translateTerm = (term: string, language: string) => {
   let config = {
-    /* "projectId": "brand-namer-1522951086893", */
-    "key": "AIzaSyASAnHi5hJuApvaoxTOf1yPxaQ4PfiSIHA"
+    "key": Constants.gcloudTranslateApiKey
   };
 
   let translater = Translate.make(config);
@@ -32,7 +33,7 @@ let translateTerm = (term: string, language: string) => {
   Js.Promise.(
     Translate.translate(translater, term, language)
     |> then_((response) => resolve(response[0]))
-    /* |> catch((error) => reject(error)) */
+    /* |> catch((error) => reject(TranslationError(error))) */
   );
 };
 
