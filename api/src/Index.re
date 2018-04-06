@@ -25,11 +25,14 @@ Middleware.from(
   (next, request, resource) =>
     switch (Utils.getDictString(Request.params(request), "term")) {
       | None => next(Next.route, resource)
-      | Some(term) => Response.sendJson(Utils.makeSuccessJson())
+      | Some(term) => Namer.translateTerm(term, "en")
+        |> (_) =>  Namer.namer(term)
+        |> (namings) => Namer.encodeNamingToJson(namings)
+        |> (json) => Response.sendJson(json, resource)
         /* Js.Promise.(
           Namer.translateTerm(term)
           |> then_((response) => resolve(Js.log(response##data)))
-          |> catch((error) => resolve(Js.log(error)))
+          /* |> catch((error) => resolve(Js.log(error))) */
         ); */
     }
 );

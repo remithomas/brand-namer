@@ -19,10 +19,18 @@ let encodeNamingToJson = (namings) => {
 };
 
 let translateTerm = (term: string, language: string) => {
-  let translater = Translate.createTranslate();
+  let config = {
+    "projectId": "aaaa-bbbb-cccc-dddd"
+  };
+
+  let translater = Translate.make(config);
+
+  Js.log(term ++ " " ++ language);
+  /* Translate.translate(translater, "à traduire", "en") */
+  /* translater |> Translate.translate("à traduire", "en") */
 
   Js.Promise.(
-    Translate.translate(translater, "à traduire")
+    Translate.translate(translater, "à traduire", "en")
     |> then_((response) => resolve(Js.log(response##translations)))
     |> catch((error) => resolve(Js.log(error)))
   );

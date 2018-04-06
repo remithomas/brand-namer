@@ -1,3 +1,10 @@
+/* type config = Js.t({.});
+
+[@bs.obj]
+external makeClientConfig : (
+  ~projectId: string
+) => config = ""; */
+
 type clientConfig = {
   .
   "projectId": string,
@@ -10,11 +17,11 @@ module Translate = {
     .
     "translations": 'a
   };
-  /* [@bs.module] external make : unit => t = "@google-cloud/translate"; */
 
-  [@bs.module "@google-cloud/translate"] [@bs.new] external createTranslate : unit => t = "Translate";
-  /* [@bs.send] external translate : (t, string) => unit = ""; */
-  [@bs.send] external translate : (t, string) => Js.Promise.t(translateResponse('a)) = "";
+  [@bs.module] [@bs.new] external make : clientConfig => t = "@google-cloud/translate";
+
+  [@bs.send] external translate : (t, string, string) => Js.Promise.t(translateResponse('a)) = "translate";
+  /* [@bs.send.pipe: t] external translate : (string, string) => Js.Promise.t(translateResponse('a)) = ""; */
 };
 
 
