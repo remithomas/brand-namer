@@ -2,6 +2,8 @@ open Express;
 
 let app = express();
 
+external castToErr : Js.Promise.error => Error.t = "%identity";
+
 App.get(app, ~path="/") @@
 Middleware.from(
   (_next, _request) => Response.sendJson(Utils.makeSuccessJson())
@@ -21,14 +23,21 @@ Middleware.from(
 ); */
 
 App.get(app, ~path="/api/namer/:term") @@
-Middleware.from(
+PromiseMiddleware.from(
   (next, request, resource) =>
     switch (Utils.getDictString(Request.params(request), "term")) {
-      | None => next(Next.route, resource)
-      | Some(term) => Namer.translateTerm(term, "en")
-        |> (_) =>  Namer.namer(term)
-        |> (namings) => Namer.encodeNamingToJson(namings)
-        |> (json) => Response.sendJson(json, resource)
+      | None => Js.Promise.resolve(next(Next.route, resource))
+      | Some(term) => Js.Promise.(
+          Namer.asyncNamer(term, "en")
+          |> then_(
+            (namings) => Namer.encodeNamingToJson(namings)
+              |> (json) => resolve(Response.sendJson(json, resource))
+          )
+          /* |> catch((error) => Js.Promise.resolve(next(Next.error(castToErr(error), resource)))) */
+        )
+        /* |> (_) =>  Namer.namer(term) */
+        /* |> (namings) => Namer.encodeNamingToJson(namings) */
+        /* |> (json) => Response.sendJson(json, resource) */
         /* Js.Promise.(
           Namer.translateTerm(term)
           |> then_((response) => resolve(Js.log(response##data)))
