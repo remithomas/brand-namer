@@ -25,7 +25,7 @@ jobs:
                 paths:
                     - ./client/node_modules
                 key: v1-client-dependencies-{{ checksum "client/package.json" }}
-            - run: cd ./client/ && yarn run start:simple
+            - run: cd ./client/ && yarn run start
             - run: cd ./client/ && yarn test
 
             # Api build
