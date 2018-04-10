@@ -32,9 +32,9 @@ test
 npm test
 ```
 
-Webpack Development
+Node Development
 ```bash
-npm run node
+npm run nodemon
 ```
 
 Open [http://127.0.0.1:3001/api/namer](http://127.0.0.1:3001/api/namer) file in your browser.
@@ -51,7 +51,7 @@ npm install
 
 BSB Development
 ```bash
-npm start
+npm start:dev
 ```
 
 Webpack Development
