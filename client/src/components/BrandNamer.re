@@ -8,21 +8,17 @@ type state = {
 let component = ReasonReact.reducerComponent("BrandNamer");
 
 let make = (_children) => {
-  let handleSubmitForm = (term) => {
+  let handleSubmitFormHelper = (term, send) => {
     let apiUrlNamerTerm = Constants.apiUrlNamer ++ "/" ++ term;
 
     Js.Promise.(
       Axios.get(apiUrlNamerTerm)
       |> then_((response) => {
         let resultData: array(string) = response##data##translations;
-        ReasonReact.Update(
-          _state => {result: resultData}
-        );
 
-        /* ReasonReact.SideEffects(
-          self => self.send(Result(response##data##translations)) |> ignore
-        ); */
-        resolve();
+        resolve(
+          send(Result(resultData)) |> ignore
+        );
       })
       |> catch((error) => resolve(Js.log(error)))
     );
@@ -37,20 +33,19 @@ let make = (_children) => {
   
     reducer: action =>
         switch (action) {
-        | Result(namesResult) => _state => {
-          ReasonReact.Update({
-            result: namesResult
-          });
-        }
+        | Result(namesResult) => _state =>
+            ReasonReact.Update({
+              result: namesResult
+            })
       },
   
-    render: ({state}) => {
+    render: ({state, send}) => {
       let { result } = state;
   
       (
         <div className="brand-namer">
         <BrandNamerForm
-          onSubmit=(value => handleSubmitForm(value) |> ignore)
+          onSubmit=(value => handleSubmitFormHelper(value, send) |> ignore)
         />
   
         <BrandNamerResult
