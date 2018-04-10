@@ -49,7 +49,7 @@ let make = (
           >
             <Field
               label="Choose your possible name"
-              component=(<Input onChange=((value) => send(Change(value))) />)
+              component=(<Input onChange=(value => send(Change(value))) />)
             />
   
             <Button type_=(Button.Submit)>

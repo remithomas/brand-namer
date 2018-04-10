@@ -4,6 +4,14 @@ let app = express();
 
 external castToErr : Js.Promise.error => Error.t = "%identity";
 
+App.useOnPath(app, ~path="/") @@
+Middleware.from((next, _request, resource) =>
+  resource
+  |> Response.setHeader("Access-Control-Allow-Origin", "*")
+  |> Response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  |> next(Next.middleware)
+);
+
 App.get(app, ~path="/") @@
 Middleware.from(
   (_next, _request) => Response.sendJson(Utils.makeSuccessJson())
