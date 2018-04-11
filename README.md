@@ -1,8 +1,7 @@
-# Brand namer...
-
-[![CircleCI](https://circleci.com/gh/remithomas/brand-namer.svg?style=svg)](https://circleci.com/gh/remithomas/brand-namer)
+# Brand namer... [![CircleCI](https://circleci.com/gh/remithomas/brand-namer.svg?style=svg)](https://circleci.com/gh/remithomas/brand-namer)
 
 **Brand namer** because brand name availability it's so complicated 😭
+The project is simply: type your name, and the systeme gives you the availabled names (or their synonimes) in some languages for the domain `.com` and `Facebook`
 
 > Currently in WIP
 
