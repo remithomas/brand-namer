@@ -1,39 +1,43 @@
 # Brand namer... [![CircleCI](https://circleci.com/gh/remithomas/brand-namer.svg?style=svg)](https://circleci.com/gh/remithomas/brand-namer)
 
 **Brand namer** because brand name availability it's so complicated 😭
-The project is simply: type your name, and the systeme gives you the availabled names (or their synonimes) in some languages for the domain `.com` and `Facebook`
 
 > Currently in WIP
 
+The project is simply: type your _term_, and the system gives you the availabled names (or their synonymes) in some languages for the domain `.com` and `Facebook`
+
 - This project is/will be coded with love in [ReasonMl](http://reasonml.github.io/)
+  - Backend: ExpressJs with [bs-express](https://github.com/reasonml-community/bs-express)
+  - Frontend: ReactJs on [ReasonReact](https://reasonml.github.io/reason-react/)
 
 ## Requirements
 
 * bs-platform `2.2.3`
+* node `8.*`
 
 ## Back-end
 
 ### Installation
 
 ```bash
-npm install
+yarn install
 ```
 
 ### Development
 
 BSB Development
 ```bash
-npm start
+yarn start
 ```
 
 test
 ```bash
-npm test
+yarn test
 ```
 
 Node Development
 ```bash
-npm run nodemon
+yarn run nodemon
 ```
 
 Open [http://127.0.0.1:3001/api/namer](http://127.0.0.1:3001/api/namer) file in your browser.
@@ -64,4 +68,11 @@ Open [index.html](client/public/index.html) file in your browser.
 
 - [X] Front-end setup
 - [X] Back-end setup
-- [ ] Send request to API
+- [X] Send request to API
+- [ ] Show translations
+- [ ] Api ask if domain exists
+
+
+## Thanks
+
+* Many thanks to [@Glennsl](https://github.com/glennsl) with his awesome lib [bs-json](https://github.com/glennsl/bs-json)
