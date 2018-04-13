@@ -3,13 +3,18 @@ open GCloud;
 type naming = {
   term: string,
   synonymes: array(string),
-  translations: array(string),
+  translations: array(Translation.t),
   suggestions: array(string)
 };
 
 exception TranslationError(string);
 
-let namer = (~term: string, ~synonymes: array(string), ~translations: array(string), ~suggestions: array(string)) => {
+let namer = (
+  ~term: string,
+  ~synonymes: array(string),
+  ~translations: array(Translation.t),
+  ~suggestions: array(string)
+) => {
   {
     term,
     synonymes,
@@ -23,7 +28,7 @@ let encodeNamingToJson = (namingData) => {
     object_([
       ("term", string(namingData.term)),
       ("synonymes", Json.Encode.stringArray(namingData.synonymes)),
-      ("translations", Json.Encode.stringArray(namingData.translations)),
+      ("translations", Translation.Encode.encodeTranslations(namingData.translations)),
       ("suggestions", Json.Encode.stringArray(namingData.suggestions))
     ])
   )
@@ -47,12 +52,18 @@ let asyncNamer = (term: string, language: string) => {
   Js.Promise.(
     translateTerm(term, language)
     |> then_(
-      (translations) => resolve(namer(
-        ~term=term,
-        ~synonymes= [||],
-        ~translations=[|translations|],
-        ~suggestions= [||]
-      ))
+      (translations) => {
+        let translation: Translation.t = {
+          language: language,
+          translation: translations
+        };
+        resolve(namer(
+          ~term=term,
+          ~synonymes= [||],
+          ~translations=[|translation|],
+          ~suggestions= [||]
+        ))
+      }
     )
     /* |> catch((error) => resolve(Js.log(error))) */
   );

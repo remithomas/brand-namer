@@ -1,8 +1,8 @@
 type action = 
-  | Result(array(string));
+  | Result(array(Types.Translation.t));
 
 type state = {
-  result: array(string)
+  result: array(Types.Translation.t)
 };
 
 let component = ReasonReact.reducerComponent("BrandNamer");
@@ -14,7 +14,16 @@ let make = (_children) => {
     Js.Promise.(
       Axios.get(apiUrlNamerTerm)
       |> then_((response) => {
-        let resultData: array(string) = response##data##translations;
+        Js.log(response##data##translations);
+        let resultData: array(Types.Translation.t) = Types.Translation.castTranslations(response##data##translations);
+        Js.log(resultData);
+        /* let resultData: array(Types.Translation.t) = Types.Translation.Encode.dummy(); */
+
+        /* let resultData: array(Types.Translation.t) = response##data##translations; */
+        /* let resultData: array(Types.Translation.t) = [|{
+          language: "fr",
+          translation: "traduit"
+        }|]; */
 
         resolve(
           send(Result(resultData)) |> ignore

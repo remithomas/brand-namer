@@ -4,7 +4,7 @@ let make = (_children) => {
   ...component,
   render: (_self) =>
     <div className="brand-namer-app">
-      <div className="brand-namer-app-container">
+      <div className="brand-namer-app__container">
         <Title title="Brand Namer" />
         <BrandNamer />
       </div>
