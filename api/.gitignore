@@ -1,5 +1,6 @@
 .merlin
 .bsb.lock
+.log
 lib
 node_modules
 coverage/

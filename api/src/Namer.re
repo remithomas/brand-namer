@@ -23,6 +23,12 @@ let namer = (
   }
 };
 
+let arrayFromList = (~init: 'a, l: list('a)) => {
+  let arr = ArrayLabels.make(ListLabels.length(l), init);
+  ListLabels.iteri(~f=(i, x) => arr[i]=x, l);
+  arr;
+};
+
 let encodeNamingToJson = (namingData) => {
   Json.Encode.(
     object_([
@@ -48,23 +54,32 @@ let translateTerm = (term: string, language: string) => {
   );
 };
 
-let asyncNamer = (term: string, language: string) => {
+let makeTranslationListFromPriomises = (latinTranslationPromiseResults) => {
+  Array.mapi((index, result) => {
+    let translation: Translation.t = {
+      language: List.nth(Constants.latinTranslations, index),
+      translation: result
+    };
+    translation;
+  }, latinTranslationPromiseResults);
+};
+
+let asyncNamer = (term: string) => {
+  let latinTranslations = List.map(languageItem => translateTerm(term, languageItem), Constants.latinTranslations);
+
   Js.Promise.(
-    translateTerm(term, language)
+    all(Array.of_list(latinTranslations))
     |> then_(
-      (translations) => {
-        let translation: Translation.t = {
-          language: language,
-          translation: translations
-        };
+      latinTranslationPromiseResults => {
+        let translations = makeTranslationListFromPriomises(latinTranslationPromiseResults);
+
         resolve(namer(
           ~term=term,
           ~synonymes= [||],
-          ~translations=[|translation|],
+          ~translations=translations,
           ~suggestions= [||]
-        ))
+        ));
       }
     )
-    /* |> catch((error) => resolve(Js.log(error))) */
   );
 };
