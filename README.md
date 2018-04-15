@@ -47,19 +47,19 @@ Open [http://127.0.0.1:3001/api/namer](http://127.0.0.1:3001/api/namer) file in 
 ### Installation
 
 ```bash
-npm install
+yarn install
 ```
 
 ### Development
 
 BSB Development
 ```bash
-npm start:dev
+yarn start:dev
 ```
 
 Webpack Development
 ```bash
-npm run build
+yarn run build
 ```
 
 Open [index.html](client/public/index.html) file in your browser.

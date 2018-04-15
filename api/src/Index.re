@@ -23,7 +23,7 @@ PromiseMiddleware.from(
     switch (Utils.getDictString(Request.params(request), "term")) {
       | None => Js.Promise.resolve(next(Next.route, resource))
       | Some(term) => Js.Promise.(
-          Namer.asyncNamer(term, "en")
+          Namer.asyncNamer(term)
           |> then_(
             (namings) => Namer.encodeNamingToJson(namings)
               |> (json) => resolve(Response.sendJson(json, resource))
