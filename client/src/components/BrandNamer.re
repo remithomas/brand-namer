@@ -14,16 +14,7 @@ let make = (_children) => {
     Js.Promise.(
       Axios.get(apiUrlNamerTerm)
       |> then_((response) => {
-        Js.log(response##data##translations);
         let resultData: array(Types.Translation.t) = Types.Translation.castTranslations(response##data##translations);
-        Js.log(resultData);
-        /* let resultData: array(Types.Translation.t) = Types.Translation.Encode.dummy(); */
-
-        /* let resultData: array(Types.Translation.t) = response##data##translations; */
-        /* let resultData: array(Types.Translation.t) = [|{
-          language: "fr",
-          translation: "traduit"
-        }|]; */
 
         resolve(
           send(Result(resultData)) |> ignore

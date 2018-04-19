@@ -5366,6 +5366,10 @@ reason-react@^0.3.4:
     react ">=15.0.0 || >=16.0.0"
     react-dom ">=15.0.0 || >=16.0.0"
 
+rebem-helper@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/rebem-helper/-/rebem-helper-1.0.3.tgz#bbe4d99dc9cc0925dd847d9212c7b25e7612d42d"
+
 recast@^0.12.5:
   version "0.12.9"
   resolved "https://registry.yarnpkg.com/recast/-/recast-0.12.9.tgz#e8e52bdb9691af462ccbd7c15d5a5113647a15f1"
