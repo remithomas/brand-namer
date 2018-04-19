@@ -1,3 +1,5 @@
+open ReBemHelper;
+
 type state = {
   value: string,
   valueFieldRef: ref(option(Dom.element)),
@@ -36,7 +38,7 @@ let make = (
     <div className="input">
       <input
         ref=(handle(setValueFieldRef))
-        className="input-input"
+        className=(bem(~block="input", ~element="input", ()))
         value=state.value
         onChange=(
           event =>
