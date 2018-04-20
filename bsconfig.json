@@ -1,12 +1,15 @@
 {
-    "name" : "brand-namer-api",
-    "bsc-flags": [
-        "-bs-super-errors"
-    ],
+    "name" : "brand-namer",
+    "reason" : {
+        "react-jsx" : 2
+    },
     "refmt": 3,
     "bs-dependencies": [
+        "@glennsl/bs-json",
+        "bs-axios",
         "bs-express",
-        "@glennsl/bs-json"
+        "reason-react",
+        "rebem-helper"
     ],
     "bs-dev-dependencies": [
         "@glennsl/bs-jest"
@@ -14,6 +17,14 @@
     "sources": [
         {
             "dir" : "src",
+            "subdirs": true
+        },
+        {
+            "dir" : "server",
+            "subdirs": true
+        },
+        {
+            "dir" : "common",
             "subdirs": true
         },
         {

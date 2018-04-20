@@ -1,6 +1,6 @@
 let component = ReasonReact.statelessComponent("BrandNamerResult");
 
-let make = (~result: array(Types.Translation.t), _children) => {
+let make = (~result: array(Translation.t), _children) => {
   ...component,
 
   render: (_self) => {
@@ -11,7 +11,7 @@ let make = (~result: array(Types.Translation.t), _children) => {
           Array.mapi((index, item) => {
             
             /* let tr = item; */
-            <Translation key=(string_of_int(index)) translation=item />
+            <SuggestionItem key=(string_of_int(index)) translation=item />
             /* <div /> */
           }, result)
             /* |> List.toArray */

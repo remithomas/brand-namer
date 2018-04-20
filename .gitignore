@@ -3,5 +3,7 @@
 .log
 lib
 node_modules
+public/bundle.js
+public/styles.css
 coverage/
 .coveralls.yml

@@ -10,12 +10,12 @@ The project is simply: type your _term_, and the system gives you the availabled
   - Backend: ExpressJs with [bs-express](https://github.com/reasonml-community/bs-express)
   - Frontend: ReactJs on [ReasonReact](https://reasonml.github.io/reason-react/)
 
+- This is a Isomorphic App: it integrates backend and frontend.
+
 ## Requirements
 
 * bs-platform `2.2.3`
 * node `8.*`
-
-## Back-end
 
 ### Installation
 
@@ -30,39 +30,21 @@ BSB Development
 yarn start
 ```
 
+Javascript Development (read only)
+```bash
+# backend
+yarn run nodemon
+
+# frontend
+yarn run build:dev
+```
+
 test
 ```bash
 yarn test
 ```
 
-Node Development
-```bash
-yarn run nodemon
-```
-
-Open [http://127.0.0.1:3001/api/namer](http://127.0.0.1:3001/api/namer) file in your browser.
-
-## Front-end
-
-### Installation
-
-```bash
-yarn install
-```
-
-### Development
-
-BSB Development
-```bash
-yarn start:dev
-```
-
-Webpack Development
-```bash
-yarn run build
-```
-
-Open [index.html](client/public/index.html) file in your browser.
+Open [http://127.0.0.1:3000/](http://127.0.0.1:3000) url in your browser.
 
 ## Todos (Stories)
 
@@ -71,7 +53,6 @@ Open [index.html](client/public/index.html) file in your browser.
 - [X] Send request to API
 - [ ] Show translations
 - [ ] Api ask if domain exists
-
 
 ## Thanks
 

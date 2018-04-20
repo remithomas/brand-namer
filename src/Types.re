@@ -1,4 +1,4 @@
-module Translation = {
+/* module Translation = {
   type t = {
     language: string,
     translation: string
@@ -19,4 +19,4 @@ module Translation = {
 
   let castTranslations = arrayOfObject => 
     Array.map(obj => castTranslation(obj), arrayOfObject);
-};
+}; */
