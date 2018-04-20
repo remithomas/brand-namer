@@ -6,11 +6,6 @@ module.exports = {
   bail: false,
   devtool: 'eval',
   mode: 'development',
-  devServer: {
-    contentBase: './public',
-    historyApiFallback: true,
-    inline: true,
-    port: 3000,
-    stats: 'errors-only',
-  },
+  watch: true
+  // devServer: false
 };

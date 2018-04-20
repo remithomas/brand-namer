@@ -4,6 +4,7 @@ let app = express();
 
 external castToErr : Js.Promise.error => Error.t = "%identity";
 
+/* CORS */
 App.useOnPath(app, ~path="/") @@
 Middleware.from((next, _request, resource) =>
   resource
@@ -12,9 +13,13 @@ Middleware.from((next, _request, resource) =>
   |> next(Next.middleware)
 );
 
-App.get(app, ~path="/") @@
-Middleware.from(
-  (_next, _request) => Response.sendJson(Utils.makeSuccessJson())
+App.useOnPath(
+  app,
+  ~path="/",
+  {
+    let options = Static.defaultOptions();
+    Static.make("public", options) |> Static.asMiddleware;
+  },
 );
 
 App.get(app, ~path="/api/namer/:term") @@

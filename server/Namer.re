@@ -1,4 +1,5 @@
 open GCloud;
+/* open Types; */
 
 type naming = {
   term: string,
