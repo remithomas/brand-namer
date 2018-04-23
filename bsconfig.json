@@ -5,6 +5,7 @@
     },
     "refmt": 3,
     "bs-dependencies": [
+        "@ahrefs/bs-dotenv",
         "@glennsl/bs-json",
         "bs-axios",
         "bs-express",

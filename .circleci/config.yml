@@ -3,7 +3,7 @@ version: 2
 jobs:
     build:
         docker:
-            - image: circleci/node:8.9.4
+            - image: circleci/node:8
 
         working_directory: ~/brand-namer
 
@@ -13,7 +13,6 @@ jobs:
             # - run: sudo npm install -g bs-platform
             - run: yarn global add bs-platform
 
-            # Client build
             # Download and cache dependencies
             - restore_cache:
                 keys:
@@ -25,5 +24,10 @@ jobs:
                 paths:
                     - ./node_modules
                 key: v1-dependencies-{{ checksum "package.json" }}
-            - run: yarn run start
+            - run: 
+                name: Start
+                command: yarn run start
+                environment:
+                    APP_PORT: 3000
+                    GCOULD_TRANSLATE_KEY: "your-key"
             - run: yarn test

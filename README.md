@@ -19,6 +19,8 @@ The project is simply: type your _term_, and the system gives you the availabled
 
 ### Installation
 
+Create a `.env` file to your root folder using [.env.sample](./.env.sample) file sample
+
 ```bash
 yarn install
 ```

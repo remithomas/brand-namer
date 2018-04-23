@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@ahrefs/bs-dotenv@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@ahrefs/bs-dotenv/-/bs-dotenv-1.0.3.tgz#3a904ac064289dca205bd33d2a01d1e26db0cbaa"
+
 "@babel/code-frame@^7.0.0-beta.35":
   version "7.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.44.tgz#2a02643368de80916162be70865c97774f3adbd9"
@@ -22,9 +26,9 @@
   dependencies:
     jest "^22.0.4"
 
-"@glennsl/bs-json@^1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@glennsl/bs-json/-/bs-json-1.3.1.tgz#64fc470cbe5e9779f49226a2d877169d3c67296a"
+"@glennsl/bs-json@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@glennsl/bs-json/-/bs-json-1.3.2.tgz#89869b1ed4fa0f8cc8a00046d2327273be5e71d3"
 
 "@google-cloud/common@^0.13.0":
   version "0.13.6"
@@ -2287,6 +2291,10 @@ dot-prop@^4.1.0:
   dependencies:
     is-obj "^1.0.0"
 
+dotenv@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-5.0.1.tgz#a5317459bd3d79ab88cff6e44057a6a3fbb1fcef"
+
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
@@ -2899,6 +2907,10 @@ fs-write-stream-atomic@^1.0.8:
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
+
+fs@^0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/fs/-/fs-0.0.1-security.tgz#8a7bd37186b6dddf3813f23858b57ecaaf5e41d4"
 
 fsevents@^1.1.1, fsevents@^1.1.2:
   version "1.2.0"
@@ -7810,9 +7822,9 @@ webpack-addons@^1.1.5:
   dependencies:
     jscodeshift "^0.4.0"
 
-webpack-cli@^2.0.14:
-  version "2.0.14"
-  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-2.0.14.tgz#71d03d8c10547c1dfd674f71ff3b0457c33a74cd"
+webpack-cli@^2.0.15:
+  version "2.0.15"
+  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-2.0.15.tgz#7532066556b03bd3292285ac08537e28844616c2"
   dependencies:
     chalk "^2.3.2"
     cross-spawn "^6.0.5"
