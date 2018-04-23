@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@ahrefs/bs-dotenv@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@ahrefs/bs-dotenv/-/bs-dotenv-1.0.3.tgz#3a904ac064289dca205bd33d2a01d1e26db0cbaa"
+
 "@babel/code-frame@^7.0.0-beta.35":
   version "7.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.44.tgz#2a02643368de80916162be70865c97774f3adbd9"
@@ -2286,6 +2290,10 @@ dot-prop@^4.1.0:
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.0.tgz#1f19e0c2e1aa0e32797c49799f2837ac6af69c57"
   dependencies:
     is-obj "^1.0.0"
+
+dotenv@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-5.0.1.tgz#a5317459bd3d79ab88cff6e44057a6a3fbb1fcef"
 
 duplexer3@^0.1.4:
   version "0.1.4"
