@@ -7,7 +7,7 @@ let make = (
   render: (_self) =>
     <div className="field">
       <label>
-        (ReasonReact.stringToElement(label))
+        (ReasonReact.string(label))
         {component}
       </label>
     </div>

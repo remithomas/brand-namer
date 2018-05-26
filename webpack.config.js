@@ -8,7 +8,8 @@ const extractSASS = new ExtractTextPlugin({
 module.exports = {
     entry: [
         './src/Main.scss',
-        './lib/js/src/Main.js'
+        './lib/js/src/Main.js',
+        './node_modules/socket.io-client/dist/socket.io.js',
     ],
     output: {
         path: __dirname + '/public',

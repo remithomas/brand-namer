@@ -38,12 +38,12 @@ PromiseMiddleware.from(
     }
 );
 
-let onListen = (port, e) =>
+let onListen = (_port, e) =>
   switch e {
   | exception (Js.Exn.Error(e)) =>
     Js.log(e);
     Node.Process.exit(1)
-  | _ => Js.log @@ "Listening at http://127.0.0.1:" ++ string_of_int(port)
+  | _ => Js.log @@ "Listening at " ++ Constants.appUrl
   };
 
 App.listen(
@@ -51,4 +51,34 @@ App.listen(
   ~port=Constants.appPort,
   ~onListen=onListen(Constants.appPort),
   ()
+);
+
+/* RealTime Api */
+module MyServer = BsSocket.Server.Make(SocketMessage);
+let options = MyServer.makeOptions(());
+let io = MyServer.createWithPort(Constants.socketPort, options);
+
+MyServer.onConnect(
+  io,
+  socket => {
+    open MyServer;
+    print_endline("Got a connection!");
+
+    Socket.on(
+      socket,
+      fun
+      | Namer(term) => {
+        Js.log("namer...");
+        Js.log(term);
+        let translationItem: Translation.t = {
+          language: "fr",
+          translation: term,
+        };
+        Socket.emit(socket, TranslationResult(translationItem));
+      }
+      | Hi => {
+        Js.log("oh, hi client.");
+      }
+    );
+  }
 );

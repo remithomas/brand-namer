@@ -1,27 +1,26 @@
 type action = 
+  | AddTranslation(Translation.t)
   | Result(array(Translation.t));
 
 type state = {
-  result: array(Translation.t)
+  result: array(Translation.t),
+  translations: list(Translation.t)
 };
 
 let component = ReasonReact.reducerComponent("BrandNamer");
 
+module SocketClient = BsSocket.Client.Make(SocketMessage);
+let socket = SocketClient.createWithUrl(Constants.socketUrl);
+
 let make = (_children) => {
   let handleSubmitFormHelper = (term, send) => {
-    let apiUrlNamerTerm = Constants.apiUrlNamer ++ "/" ++ term;
+    SocketClient.emit(socket, Namer(term));
 
-    Js.Promise.(
-      Axios.get(apiUrlNamerTerm)
-      |> then_((response) => {
-        let resultData: array(Translation.t) = Translation.Decode.castTranslations(response##data##translations);
-
-        resolve(
-          send(Result(resultData)) |> ignore
-        );
-      })
-      |> catch((error) => resolve(Js.log(error)))
-    );
+    SocketClient.on(socket, message => {
+      switch message {
+      | TranslationResult(translation) => send(AddTranslation(translation)) |> ignore
+      };
+    });
   };
 
   {
@@ -29,18 +28,27 @@ let make = (_children) => {
   
     initialState: () => {
       result: [||],
+      translations: [],
     },
   
     reducer: action =>
         switch (action) {
-        | Result(namesResult) => _state =>
+        | AddTranslation(translation) => state => {
+          let newTranslationList = [translation, ...state.translations];
+          ReasonReact.Update({
+            ...state,
+            translations: newTranslationList
+          })
+        }
+        | Result(namesResult) => state =>
             ReasonReact.Update({
+              ...state,
               result: namesResult
             })
       },
   
     render: ({state, send}) => {
-      let { result } = state;
+      let { translations } = state;
   
       (
         <div className="brand-namer">
@@ -49,7 +57,7 @@ let make = (_children) => {
         />
   
         <BrandNamerResult
-          result=result
+          result=Array.of_list(translations)
         />
       </div>
       );
