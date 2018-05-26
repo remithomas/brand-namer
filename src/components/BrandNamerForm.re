@@ -45,7 +45,7 @@ let make = (
               ReactEventRe.Form.preventDefault(event);
               send(Submit);
             })
-            noValidate=(Js.true_)
+            noValidate=(true)
           >
             <Field
               label="Choose your possible name"
@@ -53,7 +53,7 @@ let make = (
             />
   
             <Button type_=(Button.Submit)>
-              (ReasonReact.stringToElement("Submit"))
+              (ReasonReact.string("Submit"))
             </Button>
           </form>
         </div>

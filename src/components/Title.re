@@ -4,6 +4,6 @@ let make = (~title, _children) => {
   ...component,
   render: (_self) =>
     <div className="title">
-      (ReasonReact.stringToElement(title))
+      (ReasonReact.string(title))
     </div>
 };

@@ -7,5 +7,4 @@ module.exports = {
   devtool: 'eval',
   mode: 'development',
   watch: true
-  // devServer: false
 };
