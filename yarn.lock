@@ -1443,7 +1443,7 @@ bs-platform@^3.0.0:
 
 "bs-socket@https://github.com/reasonml-community/bs-socket.io.git":
   version "1.1.0"
-  resolved "https://github.com/reasonml-community/bs-socket.io.git#881923da14b46850bb0c999b9166a0d5ad63784d"
+  resolved "https://github.com/reasonml-community/bs-socket.io.git#1ac2b70b228a154933869c96bf2955e03dfc5a60"
   dependencies:
     socket.io "^1.4.8"
 
