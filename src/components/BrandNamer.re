@@ -27,14 +27,7 @@ let make = (_children) => {
     ...component,
   
     initialState: () => {
-      suggestions: [{
-        suggest: "string",
-        languages: ["fr"],
-        hasAvailableDomain: true,
-        isCheckingDomain: false,
-        hasAvailableFacebookName: true,
-        isCheckingFacebookName: false
-      }],
+      suggestions: [],
       translations: [],
     },
   
