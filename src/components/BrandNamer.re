@@ -1,9 +1,9 @@
 type action = 
   | AddTranslation(Translation.t)
-  | Result(array(Translation.t));
+  | UpdateSuggestion(Suggestion.t);
 
 type state = {
-  result: array(Translation.t),
+  suggestions: list(Suggestion.t),
   translations: list(Translation.t)
 };
 
@@ -27,7 +27,7 @@ let make = (_children) => {
     ...component,
   
     initialState: () => {
-      result: [||],
+      suggestions: [],
       translations: [],
     },
   
@@ -40,24 +40,20 @@ let make = (_children) => {
             translations: newTranslationList
           })
         }
-        | Result(namesResult) => state =>
-            ReasonReact.Update({
-              ...state,
-              result: namesResult
-            })
+        | UpdateSuggestion(_suggestion) => _state => ReasonReact.NoUpdate
       },
   
     render: ({state, send}) => {
-      let { translations } = state;
+      let { suggestions } = state;
   
       (
         <div className="brand-namer">
         <BrandNamerForm
           onSubmit=(value => handleSubmitFormHelper(value, send) |> ignore)
         />
-  
-        <BrandNamerResult
-          result=Array.of_list(translations)
+
+        <SuggestionsList
+          suggestions=suggestions
         />
       </div>
       );

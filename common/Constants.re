@@ -9,16 +9,16 @@ let getStringEnvVariableByKey = (key) => {
   }
 };
 
-let getIntEnvVariableByKey = (key): int => {
+let getIntEnvVariableByKey = (key, default): int => {
   switch (Js.Dict.get(nodeEnv, key)) {
-  | None => 3000
+  | None => default
   | Some(string) => int_of_string(string)
   }
 };
 
 let gcloudTranslateApiKey = getStringEnvVariableByKey("GCOULD_TRANSLATE_KEY");
-let appPort: int = getIntEnvVariableByKey("APP_PORT");
-let socketPort: int = getIntEnvVariableByKey("SOCKET_PORT");
+let appPort: int = getIntEnvVariableByKey("APP_PORT", 3000);
+let socketPort: int = getIntEnvVariableByKey("SOCKET_PORT", 3001);
 
 let socketUrl = "http://localhost:" ++ string_of_int(socketPort);
 let appUrl = "http://localhost:" ++ string_of_int(appPort);
