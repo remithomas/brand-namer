@@ -1,17 +1,25 @@
 let component = ReasonReact.statelessComponent("SuggestionItem");
 
-let make = (~translation: Translation.t, _children) => {
+let make = (~suggestion: Suggestion.t, _children) => {
   ...component,
 
   render: (_self) => {
     (
       <div className="suggestion-item">
-        <div className="suggestion-item__translation">(ReasonReact.string(translation.translation))</div>
-        <div className="suggestion-item__languages">(ReasonReact.string(translation.language))</div>
+        <div className="suggestion-item__translation">(ReasonReact.string(suggestion.suggest))</div>
+        <div className="suggestion-item__languages">(String.concat(", ", suggestion.languages) |> ReasonReact.string)</div>
 
         <div className="suggestion-item__media">
-          (ReasonReact.string("ok example.com"))
-          (ReasonReact.string("ok facebook.com/example"))
+          <MediaItem
+            mediaType="Facebook" 
+            mediaName=("facebook/" ++ suggestion.suggest)
+            isAvailable=suggestion.hasAvailableFacebookName
+          />
+          <MediaItem
+            mediaType="siteweb"
+            mediaName=(suggestion.suggest ++ ".com")
+            isAvailable=suggestion.hasAvailableDomain
+          />
         </div>
       </div>
     );
