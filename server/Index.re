@@ -76,9 +76,7 @@ MyServer.onConnect(
         };
         Socket.emit(socket, TranslationResult(translationItem));
       }
-      | Hi => {
-        Js.log("oh, hi client.");
-      }
+      | Hi => Js.log("oh, hi client.")
     );
   }
 );

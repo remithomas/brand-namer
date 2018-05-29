@@ -48,13 +48,18 @@ yarn test
 
 Open [http://127.0.0.1:3000/](http://127.0.0.1:3000) url in your browser.
 
+## How it works
+
+This is simple, you ask a name and the API send you some possible translations and synonyms with their avaibility for `Facebook` and `.com`.
+
 ## Todos (Stories)
 
 - [X] Front-end setup
 - [X] Back-end setup
 - [X] Send request to API
 - [ ] Show translations
-- [ ] Api ask if domain exists
+- [ ] Api ask if domain exists (route 66)
+- [ ] Api ask if facebook name exists
 
 ## Thanks
 
