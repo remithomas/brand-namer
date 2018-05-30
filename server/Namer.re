@@ -7,6 +7,7 @@ type naming = {
   suggestions: array(string)
 };
 
+exception NamerError(string);
 exception TranslationError(string);
 
 let namer = (
@@ -50,11 +51,14 @@ let translateTerm = (term: string, language: string) => {
   Js.Promise.(
     Translate.translate(translater, term, language)
     |> then_((response) => resolve(response[0]))
-    /* |> catch((error) => reject(TranslationError(error))) */
+    |> catch((error) => {
+      Js.log(error);
+      reject(TranslationError("Translating error"))
+    })
   );
 };
 
-let makeTranslationListFromPriomises = (latinTranslationPromiseResults) => {
+let makeTranslationListFromPromises = (latinTranslationPromiseResults) => {
   Array.mapi((index, result) => {
     let translation: Translation.t = {
       language: List.nth(Constants.latinTranslations, index),
@@ -71,7 +75,7 @@ let asyncNamer = (term: string) => {
     all(Array.of_list(latinTranslations))
     |> then_(
       latinTranslationPromiseResults => {
-        let translations = makeTranslationListFromPriomises(latinTranslationPromiseResults);
+        let translations = makeTranslationListFromPromises(latinTranslationPromiseResults);
 
         resolve(namer(
           ~term=term,
@@ -82,4 +86,32 @@ let asyncNamer = (term: string) => {
       }
     )
   );
+};
+
+let translate = (term) => {
+  /* return Promise.resolve */
+  Js.Promise.resolve(term);
+  /* Js.Promise.(
+    Js.Promise.resolve(term)
+    |> then_((translation) => resolve(translation))
+    |> catch((_error) => reject(NamerError("Something happens")))
+  ); */
+};
+
+let checkFacebookAvaibility = (facebookName) => {
+  /* return Promise.resolve */
+  Js.Promise.resolve(true);
+};
+
+let checkDomainAvaibility = (domainName) => {
+  /* return Promise.resolve */
+  Js.Promise.resolve(true);
+};
+
+let askTranslationPromises = (term) => {
+  /* List.map(languageItem => (languageItem, translateTerm(term, languageItem)), Constants.latinTranslations); */
+  /* Mockup */
+  List.map(languageItem => {
+    (languageItem, Js.Promise.resolve(term ++ "_" ++ languageItem));
+  }, Constants.latinTranslations);
 };

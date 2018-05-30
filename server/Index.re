@@ -53,10 +53,46 @@ App.listen(
   ()
 );
 
+/* App State */
+/* TODO: persist result in state to reduce number of requests */
+let suggestions = [];
+
 /* RealTime Api */
 module MyServer = BsSocket.Server.Make(SocketMessage);
 let options = MyServer.makeOptions(());
 let io = MyServer.createWithPort(Constants.socketPort, options);
+
+let sendTranslationToSocket = (translation, language, socket) => {
+  open MyServer;
+
+  let translationItem = Translation.make(language, translation);
+  Socket.emit(socket, TranslationResult(translationItem));
+  Js.Promise.resolve(translation);
+};
+
+let sendFacebookAvailabilityFromTranslationToSocket = (translation, socket) => {
+  open MyServer;
+
+  Js.Promise.(
+    Namer.checkFacebookAvaibility(translation)
+    |> then_((hasAvailability) => {
+      Socket.emit(socket, AvailabilityResult(translation, Media.Facebook, hasAvailability));
+      resolve(translation);
+    })
+  );
+};
+
+let sendDomainAvailabilityFromTranslationToSocket = (translation, socket) => {
+  open MyServer;
+
+  Js.Promise.(
+    Namer.checkFacebookAvaibility(translation)
+    |> then_((hasAvailability) => {
+      Socket.emit(socket, AvailabilityResult(translation, Media.Facebook, hasAvailability));
+      resolve(translation);
+    })
+  );
+};
 
 MyServer.onConnect(
   io,
@@ -68,13 +104,17 @@ MyServer.onConnect(
       socket,
       fun
       | Namer(term) => {
-        Js.log("namer...");
-        Js.log(term);
-        let translationItem: Translation.t = {
-          language: "fr",
-          translation: term,
-        };
-        Socket.emit(socket, TranslationResult(translationItem));
+        let translationPromises = Namer.askTranslationPromises(term);
+
+        List.iter(((language, translationPromise)) => {
+          Js.Promise.(
+            translationPromise
+            |> then_((translation) => sendTranslationToSocket(translation, language, socket))
+            |> then_((translation) => sendFacebookAvailabilityFromTranslationToSocket(translation, socket))
+            |> then_((translation) => sendDomainAvailabilityFromTranslationToSocket(translation, socket))
+            |> ignore
+          )
+        }, translationPromises);
       }
       | Hi => Js.log("oh, hi client.")
     );

@@ -18,13 +18,6 @@ let make = (
           } |> ReasonReact.string
         )</div>
 
-        <div className="media-item__media-type">(
-          switch mediaType {
-          | Facebook => "Facebook"
-          | Website => "Website"
-          } |> ReasonReact.string
-        )</div>
-
         <div className="media-item__media-name">(ReasonReact.string(mediaName))</div>
       </div>
     );

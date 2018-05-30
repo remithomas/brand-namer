@@ -12,12 +12,12 @@ let make = (~suggestion: Suggestion.t, _children) => {
         <div className="suggestion-item__media">
           <MediaItem
             mediaType=Media.Facebook
-            mediaName=("facebook/" ++ suggestion.suggest)
+            mediaName=(Media.formatFacebookName(suggestion.suggest))
             isAvailable=suggestion.hasAvailableFacebookName
           />
           <MediaItem
             mediaType=Media.Website
-            mediaName=(suggestion.suggest ++ ".com")
+            mediaName=(Media.formatDomainName(suggestion.suggest))
             isAvailable=suggestion.hasAvailableDomain
           />
         </div>
