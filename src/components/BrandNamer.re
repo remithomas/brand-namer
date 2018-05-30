@@ -1,5 +1,6 @@
 type action = 
   | AddTranslation(Translation.t)
+  | UpdateAvailability(string, Media.mediaType, bool)
   | UpdateSuggestion(Suggestion.t)
   | ResetSuggestions;
 
@@ -16,6 +17,10 @@ let findByTranslation = (translation: Translation.t, suggestions) => {
   List.find((item: Suggestion.t) => item.suggest === translation.translation, suggestions)
 };
 
+let findBySuggest = (suggest, suggestions) => {
+  List.find((item: Suggestion.t) => item.suggest === suggest, suggestions)
+};
+
 let make = (_children) => {
   let handleSubmitFormHelper = (term, send) => {
     send(ResetSuggestions);
@@ -26,6 +31,7 @@ let make = (_children) => {
     SocketClient.on(socket, message => {
       switch message {
       | TranslationResult(translation) => send(AddTranslation(translation)) |> ignore
+      | AvailabilityResult(term, mediaType, hasAvailability) => send(UpdateAvailability(term, mediaType, hasAvailability)) |> ignore
       };
     });
   };
@@ -41,6 +47,7 @@ let make = (_children) => {
         switch (action) {
         | AddTranslation(translation) => state => {
           let newSuggestionList = switch(findByTranslation(translation, state.suggestions)) {
+          /* Add language in list  */
           | _item => state.suggestions
           | exception Not_found => {
             let suggestion = Suggestion.makeFromTranslation(translation);
@@ -48,6 +55,26 @@ let make = (_children) => {
           }
           };
 
+          ReasonReact.Update({
+            suggestions: newSuggestionList
+          })
+        }
+        | UpdateAvailability(term, mediaType, hasAvailability) => state => {
+          let newSuggestionList = List.map((suggestion: Suggestion.t) => {
+            let newSuggestion = switch mediaType {
+            | Website => {
+                ...suggestion,
+                hasAvailableDomain: hasAvailability,
+              }
+            | Facebook => {
+                ...suggestion,
+                hasAvailableFacebookName: hasAvailability,
+              }
+            };
+
+            (suggestion.suggest === term) ? newSuggestion : suggestion;
+          }, state.suggestions);
+          
           ReasonReact.Update({
             suggestions: newSuggestionList
           })

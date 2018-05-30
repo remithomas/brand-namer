@@ -3,6 +3,13 @@ type t = {
   translation: string
 };
 
+let make = (language, translation) => {
+  {
+    language: language,
+    translation: translation
+  }
+};
+
 module Encode = {
   let encodeTranslation = (translation) => {
     open! Json.Encode;
