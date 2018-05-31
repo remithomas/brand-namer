@@ -98,7 +98,7 @@ let translate = (term) => {
   ); */
 };
 
-let checkFacebookAvaibility = (facebookName) => {
+let checkFacebookAvailability = (facebookName) => {
   let url = "https://graph.facebook.com/v3.0/" ++ facebookName ++ "?access_token=" ++ Constants.facebookAuthTocken;
 
   Js.Promise.(
@@ -108,7 +108,7 @@ let checkFacebookAvaibility = (facebookName) => {
   );
 };
 
-let checkDomainAvaibility = (domainName) => {
+let checkDomainAvailability = (domainName) => {
   /* return Promise.resolve */
   Js.Promise.resolve(true);
 };

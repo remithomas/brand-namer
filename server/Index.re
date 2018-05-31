@@ -28,7 +28,7 @@ PromiseMiddleware.from(
     switch (Utils.getDictString(Request.params(request), "term")) {
       | None => Js.Promise.resolve(next(Next.route, resource))
       | Some(term) => Js.Promise.(
-        Namer.checkFacebookAvaibility(term)
+        Namer.checkFacebookAvailability(term)
         |> then_((success) => {
           let json = Utils.makeSuccessJson(success);
           resolve(Response.sendJson(json, resource));
@@ -85,24 +85,28 @@ let sendTranslationToSocket = (translation, language, socket) => {
   Js.Promise.resolve(translation);
 };
 
-let sendAvailabilityFromTranslationToSocket = (mediaType, translation, socket) => {
+let sendFacebookAvailabilityFromTranslationToSocket = (translation, socket) => {
   open MyServer;
 
   Js.Promise.(
-    Namer.checkFacebookAvaibility(translation)
+    Namer.checkFacebookAvailability(translation)
     |> then_((hasAvailability) => {
-      Socket.emit(socket, AvailabilityResult(translation, mediaType, hasAvailability));
+      Socket.emit(socket, AvailabilityResult(translation, Media.Facebook, hasAvailability));
       resolve(translation);
     })
   );
 };
 
-let sendFacebookAvailabilityFromTranslationToSocket = (translation, socket) => {
-  sendAvailabilityFromTranslationToSocket(Media.Facebook, translation, socket);
-};
-
 let sendWebsiteAvailabilityFromTranslationToSocket = (translation, socket) => {
-  sendAvailabilityFromTranslationToSocket(Media.Website, translation, socket);
+  open MyServer;
+
+  Js.Promise.(
+    Namer.checkFacebookAvailability(translation)
+    |> then_((hasAvailability) => {
+      Socket.emit(socket, AvailabilityResult(translation, Media.Website, hasAvailability));
+      resolve(translation);
+    })
+  );
 };
 
 MyServer.onConnect(
