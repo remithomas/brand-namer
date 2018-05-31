@@ -22,6 +22,21 @@ App.useOnPath(
   },
 );
 
+App.get(app, ~path="/api/facebook/:term") @@
+PromiseMiddleware.from(
+  (next, request, resource) =>
+    switch (Utils.getDictString(Request.params(request), "term")) {
+      | None => Js.Promise.resolve(next(Next.route, resource))
+      | Some(term) => Js.Promise.(
+        Namer.checkFacebookAvaibility(term)
+        |> then_((success) => {
+          let json = Utils.makeSuccessJson(success);
+          resolve(Response.sendJson(json, resource));
+        })
+      )
+    }
+);
+
 App.get(app, ~path="/api/namer/:term") @@
 PromiseMiddleware.from(
   (next, request, resource) =>
@@ -70,28 +85,24 @@ let sendTranslationToSocket = (translation, language, socket) => {
   Js.Promise.resolve(translation);
 };
 
-let sendFacebookAvailabilityFromTranslationToSocket = (translation, socket) => {
+let sendAvailabilityFromTranslationToSocket = (mediaType, translation, socket) => {
   open MyServer;
 
   Js.Promise.(
     Namer.checkFacebookAvaibility(translation)
     |> then_((hasAvailability) => {
-      Socket.emit(socket, AvailabilityResult(translation, Media.Facebook, hasAvailability));
+      Socket.emit(socket, AvailabilityResult(translation, mediaType, hasAvailability));
       resolve(translation);
     })
   );
 };
 
-let sendDomainAvailabilityFromTranslationToSocket = (translation, socket) => {
-  open MyServer;
+let sendFacebookAvailabilityFromTranslationToSocket = (translation, socket) => {
+  sendAvailabilityFromTranslationToSocket(Media.Facebook, translation, socket);
+};
 
-  Js.Promise.(
-    Namer.checkFacebookAvaibility(translation)
-    |> then_((hasAvailability) => {
-      Socket.emit(socket, AvailabilityResult(translation, Media.Facebook, hasAvailability));
-      resolve(translation);
-    })
-  );
+let sendWebsiteAvailabilityFromTranslationToSocket = (translation, socket) => {
+  sendAvailabilityFromTranslationToSocket(Media.Website, translation, socket);
 };
 
 MyServer.onConnect(
@@ -111,7 +122,7 @@ MyServer.onConnect(
             translationPromise
             |> then_((translation) => sendTranslationToSocket(translation, language, socket))
             |> then_((translation) => sendFacebookAvailabilityFromTranslationToSocket(translation, socket))
-            |> then_((translation) => sendDomainAvailabilityFromTranslationToSocket(translation, socket))
+            |> then_((translation) => sendWebsiteAvailabilityFromTranslationToSocket(translation, socket))
             |> ignore
           )
         }, translationPromises);

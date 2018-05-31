@@ -99,8 +99,13 @@ let translate = (term) => {
 };
 
 let checkFacebookAvaibility = (facebookName) => {
-  /* return Promise.resolve */
-  Js.Promise.resolve(true);
+  let url = "https://graph.facebook.com/v3.0/" ++ facebookName ++ "?access_token=" ++ Constants.facebookAuthTocken;
+
+  Js.Promise.(
+    Axios.get(url)
+    |> then_((_response) => resolve(false))
+    |> catch((_error) => resolve(true))
+  );
 };
 
 let checkDomainAvaibility = (domainName) => {

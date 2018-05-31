@@ -16,6 +16,8 @@ The project is simply: type your _term_, and the system gives you the availabled
 
 * bs-platform `2.2.3`
 * node `8.*`
+* gcloud api token
+* Facebook oauth token
 
 ### Installation
 
