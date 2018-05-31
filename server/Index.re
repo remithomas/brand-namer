@@ -22,6 +22,21 @@ App.useOnPath(
   },
 );
 
+App.get(app, ~path="/api/facebook/:term") @@
+PromiseMiddleware.from(
+  (next, request, resource) =>
+    switch (Utils.getDictString(Request.params(request), "term")) {
+      | None => Js.Promise.resolve(next(Next.route, resource))
+      | Some(term) => Js.Promise.(
+        Namer.checkFacebookAvailability(term)
+        |> then_((success) => {
+          let json = Utils.makeSuccessJson(success);
+          resolve(Response.sendJson(json, resource));
+        })
+      )
+    }
+);
+
 App.get(app, ~path="/api/namer/:term") @@
 PromiseMiddleware.from(
   (next, request, resource) =>
@@ -74,7 +89,7 @@ let sendFacebookAvailabilityFromTranslationToSocket = (translation, socket) => {
   open MyServer;
 
   Js.Promise.(
-    Namer.checkFacebookAvaibility(translation)
+    Namer.checkFacebookAvailability(translation)
     |> then_((hasAvailability) => {
       Socket.emit(socket, AvailabilityResult(translation, Media.Facebook, hasAvailability));
       resolve(translation);
@@ -82,13 +97,13 @@ let sendFacebookAvailabilityFromTranslationToSocket = (translation, socket) => {
   );
 };
 
-let sendDomainAvailabilityFromTranslationToSocket = (translation, socket) => {
+let sendWebsiteAvailabilityFromTranslationToSocket = (translation, socket) => {
   open MyServer;
 
   Js.Promise.(
-    Namer.checkFacebookAvaibility(translation)
+    Namer.checkFacebookAvailability(translation)
     |> then_((hasAvailability) => {
-      Socket.emit(socket, AvailabilityResult(translation, Media.Facebook, hasAvailability));
+      Socket.emit(socket, AvailabilityResult(translation, Media.Website, hasAvailability));
       resolve(translation);
     })
   );
@@ -111,7 +126,7 @@ MyServer.onConnect(
             translationPromise
             |> then_((translation) => sendTranslationToSocket(translation, language, socket))
             |> then_((translation) => sendFacebookAvailabilityFromTranslationToSocket(translation, socket))
-            |> then_((translation) => sendDomainAvailabilityFromTranslationToSocket(translation, socket))
+            |> then_((translation) => sendWebsiteAvailabilityFromTranslationToSocket(translation, socket))
             |> ignore
           )
         }, translationPromises);
