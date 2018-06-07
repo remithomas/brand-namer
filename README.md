@@ -59,9 +59,10 @@ This is simple, you ask a name and the API send you some possible translations a
 - [X] Front-end setup
 - [X] Back-end setup
 - [X] Send request to API
-- [ ] Show translations (and languages)
-- [ ] Api ask if domain exists (route 53)
+- [X] Show translations (and languages)
+- [X] Api ask if domain exists (route 53)
 - [X] Api ask if facebook name exists
+- [ ] Handle error from aws
 - [ ] A bit of design (check mark etc...)
 
 ## Thanks
