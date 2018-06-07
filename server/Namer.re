@@ -88,16 +88,6 @@ let asyncNamer = (term: string) => {
   );
 };
 
-let translate = (term) => {
-  /* return Promise.resolve */
-  Js.Promise.resolve(term);
-  /* Js.Promise.(
-    Js.Promise.resolve(term)
-    |> then_((translation) => resolve(translation))
-    |> catch((_error) => reject(NamerError("Something happens")))
-  ); */
-};
-
 let checkFacebookAvailability = (facebookName) => {
   let url = "https://graph.facebook.com/v3.0/" ++ facebookName ++ "?access_token=" ++ Constants.facebookAuthTocken;
 
@@ -109,14 +99,38 @@ let checkFacebookAvailability = (facebookName) => {
 };
 
 let checkDomainAvailability = (domainName) => {
-  /* return Promise.resolve */
-  Js.Promise.resolve(true);
+  open AWS;
+
+  let config = AWS.Config.config(
+    ~region="us-east-1",
+    ~apiVersion="2014-05-15",
+    ~accessKeyId=Constants.awsAccessKeyId,
+    ~secretAccessKey=Constants.awsSecretAccessKey,
+    ()
+  );
+
+  let route53Domains = Route53Domains.makeWithConfig(config);
+
+  Js.Promise.(
+    Route53Domains.checkDomainAvailability(route53Domains, domainName)
+    |> then_((result) => {
+      open AWS.Route53Domains;
+
+      let hasDomainAvailability = switch result {
+      | Available => true
+      | AvailablePreorder => true
+      | _ => false
+      };
+
+      resolve(hasDomainAvailability);
+    })
+  );
 };
 
 let askTranslationPromises = (term) => {
-  /* List.map(languageItem => (languageItem, translateTerm(term, languageItem)), Constants.latinTranslations); */
+  List.map(languageItem => (languageItem, translateTerm(term, languageItem)), Constants.latinTranslations);
   /* Mockup */
-  List.map(languageItem => {
-    (languageItem, Js.Promise.resolve(term ++ "_" ++ languageItem));
-  }, Constants.latinTranslations);
+  /* List.map(languageItem => {
+    (languageItem, Js.Promise.resolve(term ++ "-" ++ languageItem));
+  }, Constants.latinTranslations); */
 };

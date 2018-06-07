@@ -2,7 +2,7 @@ open Express;
 
 let app = express();
 
-external castToErr : Js.Promise.error => Error.t = "%identity";
+external castToErr : Js.Promise.error => Error.t = "%identity"; 
 
 /* CORS */
 App.useOnPath(app, ~path="/") @@
@@ -29,6 +29,22 @@ PromiseMiddleware.from(
       | None => Js.Promise.resolve(next(Next.route, resource))
       | Some(term) => Js.Promise.(
         Namer.checkFacebookAvailability(term)
+        |> then_((success) => {
+          let json = Utils.makeSuccessJson(success);
+          resolve(Response.sendJson(json, resource));
+        })
+        /* |> catch((error) => reject(exception(error))) */
+      )
+    }
+);
+
+App.get(app, ~path="/api/domain/:term") @@
+PromiseMiddleware.from(
+  (next, request, resource) =>
+    switch (Utils.getDictString(Request.params(request), "term")) {
+      | None => Js.Promise.resolve(next(Next.route, resource))
+      | Some(term) => Js.Promise.(
+        Namer.checkDomainAvailability(term ++ ".com")
         |> then_((success) => {
           let json = Utils.makeSuccessJson(success);
           resolve(Response.sendJson(json, resource));
@@ -101,7 +117,7 @@ let sendWebsiteAvailabilityFromTranslationToSocket = (translation, socket) => {
   open MyServer;
 
   Js.Promise.(
-    Namer.checkFacebookAvailability(translation)
+    Namer.checkDomainAvailability(translation)
     |> then_((hasAvailability) => {
       Socket.emit(socket, AvailabilityResult(translation, Media.Website, hasAvailability));
       resolve(translation);

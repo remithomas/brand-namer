@@ -1,3 +1,5 @@
+open ReBemHelper;
+
 let component = ReasonReact.statelessComponent("MediaItem");
 
 let make = (
@@ -9,12 +11,21 @@ let make = (
   ...component,
 
   render: (_self) => {
+    let classes = bem(
+      ~block="media-item",
+      ~modifiers=[
+        String(mediaName),
+        Boolean("available", isAvailable)
+      ],
+      ()
+    );
+
     (
-      <div className="media-item">
+      <div className=classes>
         <div className="media-item__is-available">(
           switch isAvailable {
-          | true => "Available"
-          | false => "Not available"
+          | true => "ok"
+          | false => "no"
           } |> ReasonReact.string
         )</div>
 

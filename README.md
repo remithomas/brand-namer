@@ -14,7 +14,7 @@ The project is simply: type your _term_, and the system gives you the availabled
 
 ## Requirements
 
-* bs-platform `2.2.3`
+* bs-platform `3.1.4`
 * node `8.*`
 * gcloud api token
 * Facebook oauth token
@@ -59,9 +59,11 @@ This is simple, you ask a name and the API send you some possible translations a
 - [X] Front-end setup
 - [X] Back-end setup
 - [X] Send request to API
-- [ ] Show translations
-- [ ] Api ask if domain exists (route 66)
-- [ ] Api ask if facebook name exists
+- [X] Show translations (and languages)
+- [X] Api ask if domain exists (route 53)
+- [X] Api ask if facebook name exists
+- [ ] Handle error from aws
+- [ ] A bit of design (check mark etc...)
 
 ## Thanks
 
