@@ -1,5 +1,12 @@
 .media-item {
   display: flex;
+  width: 100px;
+  height: 100px;
+  background:red;
+}
+
+.media-item--available {
+  background: green;
 }
 
 .media-item__is-available,

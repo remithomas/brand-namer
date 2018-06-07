@@ -40,6 +40,7 @@
     "@glennsl/bs-json": "^2.0.0",
     "@google-cloud/storage": "^1.6.0",
     "@google-cloud/translate": "^1.1.0",
+    "aws-sdk": "^2.249.1",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "normalize.css": "^8.0.0",

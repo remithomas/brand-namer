@@ -18,6 +18,8 @@ let getIntEnvVariableByKey = (key, default): int => {
 
 let gcloudTranslateApiKey = getStringEnvVariableByKey("GCOULD_TRANSLATE_KEY");
 let facebookAuthTocken = getStringEnvVariableByKey("FACEBOOK_OAUTH_TOKEN");
+let awsAccessKeyId = getStringEnvVariableByKey("AWS_ACCESS_KEY_ID");
+let awsSecretAccessKey = getStringEnvVariableByKey("AWS_SECRET_ACCESS_KEY");
 let appPort: int = getIntEnvVariableByKey("APP_PORT", 3000);
 let socketPort: int = getIntEnvVariableByKey("SOCKET_PORT", 3001);
 
