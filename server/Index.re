@@ -44,7 +44,7 @@ PromiseMiddleware.from(
     switch (Utils.getDictString(Request.params(request), "term")) {
       | None => Js.Promise.resolve(next(Next.route, resource))
       | Some(term) => Js.Promise.(
-        Namer.checkDomainAvailability(term ++ ".com")
+        Namer.checkDotComDomainAvailability(term)
         |> then_((success) => {
           let json = Utils.makeSuccessJson(success);
           resolve(Response.sendJson(json, resource));
@@ -117,7 +117,7 @@ let sendWebsiteAvailabilityFromTranslationToSocket = (translation, socket) => {
   open MyServer;
 
   Js.Promise.(
-    Namer.checkDomainAvailability(translation)
+    Namer.checkDotComDomainAvailability(translation)
     |> then_((hasAvailability) => {
       Socket.emit(socket, AvailabilityResult(translation, Media.Website, hasAvailability));
       resolve(translation);

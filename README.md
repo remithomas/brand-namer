@@ -69,7 +69,7 @@ This is simple, you ask a name and the API send you some possible translations a
 - [X] Show translations (and languages)
 - [X] Api ask if domain exists (route 53)
 - [X] Api ask if facebook name exists
-- [ ] Handle error from aws
+- [ ] Handle error from aws (improvement)
 - [ ] A bit of design (check mark etc...)
 
 ## Thanks
