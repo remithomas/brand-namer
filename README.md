@@ -18,6 +18,7 @@ The project is simply: type your _term_, and the system gives you the availabled
 * node `8.*`
 * gcloud api token
 * Facebook oauth token
+* AWS access key (and secret)
 
 ### Installation
 
@@ -54,6 +55,12 @@ Open [http://127.0.0.1:3000/](http://127.0.0.1:3000) url in your browser.
 
 This is simple, you ask a name and the API send you some possible translations and synonyms with their avaibility for `Facebook` and `.com`.
 
+### Under the hood
+
+- [`server` folder](./server/): source of the nodejs application
+- [`common` folder](./common): shared tool and type
+- [`src` folder](./src/): source of the React app
+
 ## Todos (Stories)
 
 - [X] Front-end setup
@@ -68,3 +75,4 @@ This is simple, you ask a name and the API send you some possible translations a
 ## Thanks
 
 * Many thanks to [@Glennsl](https://github.com/glennsl) with his awesome lib [bs-json](https://github.com/glennsl/bs-json)
+* icons are coming from [https://iconmonstr.com](https://iconmonstr.com)
