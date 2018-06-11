@@ -127,6 +127,8 @@ let checkDomainAvailability = (domainName) => {
   );
 };
 
+let checkDotComDomainAvailability = (domainName) => checkDomainAvailability(domainName ++ ".com");
+
 let askTranslationPromises = (term) => {
   List.map(languageItem => (languageItem, translateTerm(term, languageItem)), Constants.latinTranslations);
   /* Mockup */

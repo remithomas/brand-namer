@@ -1,5 +1,3 @@
-open ReBemHelper;
-
 let facebookIcon = [%bs.raw {|require('../../../../src/assets/facebook.svg')|}];
 let webIcon = [%bs.raw {|require('../../../../src/assets/web.svg')|}];
 
@@ -14,6 +12,8 @@ let make = (
   ...component,
 
   render: (_self) => {
+    open ReBemHelper;
+
     let classes = bem(
       ~block="media-item",
       ~modifiers=[

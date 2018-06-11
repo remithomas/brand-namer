@@ -26,9 +26,27 @@ type response = {
   [@bs.as "Availability"] availability: string
 };
 
-type callback = ((Js.Nullable.t(exn), Js.Nullable.t(response)) => unit);
+[@bs.deriving abstract]
+type errorResponse = {
+  message: string,
+  code: string,
+  time: string,
+  requestId: string,
+  statusCode: int,
+  retryable: bool,
+  retryDelay: float,
+};
+
+/* type callback = ((Js.Nullable.t(exn), Js.Nullable.t(response)) => unit); */
+type callback = ((Js.Nullable.t(errorResponse), Js.Nullable.t(response)) => unit);
 
 exception Route53DomainsError(string);
+
+let decodeError = errorCode => switch errorCode {
+| "InvalidInput" => InvalidInput
+| "UnsupportedTLD" => UnsupportedTLD
+| _ => InvalidInput
+};
 
 let decodeResult = availabilityResult => switch availabilityResult {
   | "AVAILABLE" => Available
@@ -58,7 +76,7 @@ let checkDomainAvailability = (service: t, domainName: string) => {
           let availability = decodeResult(result |. availability);
           resolve(. availability);
         }
-        | (Some(error), _) =>  reject(. error)
+        | (Some(error), _) => reject(. Route53DomainsError(error |. code))
         | (None, None) => reject(. Route53DomainsError("No error and data recieved"))
         };
     }) |> ignore;
