@@ -131,6 +131,6 @@ let askTranslationPromises = (term) => {
   List.map(languageItem => (languageItem, translateTerm(term, languageItem)), Constants.latinTranslations);
   /* Mockup */
   /* List.map(languageItem => {
-    (languageItem, Js.Promise.resolve(term ++ "-" ++ languageItem));
+    (languageItem, Js.Promise.resolve(term ++ "o" ++ languageItem));
   }, Constants.latinTranslations); */
 };

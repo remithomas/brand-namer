@@ -1,5 +1,8 @@
 open ReBemHelper;
 
+let facebookIcon = [%bs.raw {|require('../../../../src/assets/facebook.svg')|}];
+let webIcon = [%bs.raw {|require('../../../../src/assets/web.svg')|}];
+
 let component = ReasonReact.statelessComponent("MediaItem");
 
 let make = (
@@ -22,6 +25,13 @@ let make = (
 
     (
       <div className=classes>
+        <div className="media-item__is-available">(
+          switch mediaType {
+          | Media.Facebook => <img src=facebookIcon />
+          | Media.Website => <img src=webIcon />
+          }
+        )</div>
+        
         <div className="media-item__is-available">(
           switch isAvailable {
           | true => "ok"

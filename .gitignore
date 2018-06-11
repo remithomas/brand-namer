@@ -3,9 +3,12 @@
 .log
 lib
 node_modules
-public/bundle.js
-public/styles.css
 coverage/
 .coveralls.yml
 .env
 .env.production
+
+# build
+public/bundle.js
+public/styles.css
+public/*.svg
