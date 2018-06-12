@@ -1,4 +1,30 @@
 .suggestion-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+
+  &:nth-child(even) {
+    background: rgba(#999, 0.1);
+  }
+}
+
+.suggestion-item--available {
+  background: rgba($availableColor, 0.1);
+
+  &:nth-child(even) {
+    background: rgba($availableColor, 0.25);
+  }
+}
+
+.suggestion-item__translation {
+  flex: 1;
+}
+
+.suggestion-item__languages {
+  margin: 0 10px;
+}
+
+.suggestion-item__media {
+  display: flex;
 }

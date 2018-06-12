@@ -17,7 +17,7 @@ let make = (
     let classes = bem(
       ~block="media-item",
       ~modifiers=[
-        String(mediaName),
+        String(mediaType |> Media.encodeMediaType),
         Boolean("available", isAvailable)
       ],
       ()
@@ -25,21 +25,12 @@ let make = (
 
     (
       <div className=classes>
-        <div className="media-item__is-available">(
+        (
           switch mediaType {
-          | Media.Facebook => <img src=facebookIcon />
-          | Media.Website => <img src=webIcon />
+          | Media.Facebook => <img src=facebookIcon alt=mediaName />
+          | Media.Website => <img src=webIcon alt=mediaName />
           }
-        )</div>
-        
-        <div className="media-item__is-available">(
-          switch isAvailable {
-          | true => "ok"
-          | false => "no"
-          } |> ReasonReact.string
-        )</div>
-
-        <div className="media-item__media-name">(ReasonReact.string(mediaName))</div>
+        )
       </div>
     );
   }

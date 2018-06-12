@@ -38,25 +38,24 @@ let make = (
   
     render: ({send}) => {
       (
-        <div className="form">
-          <form
-            className="brand-namer-form"
-            onSubmit=(event => {
-              ReactEventRe.Form.preventDefault(event);
-              send(Submit);
-            })
-            noValidate=(true)
-          >
-            <Field
-              label="Choose your possible name"
-              component=(<Input onChange=(value => send(Change(value))) />)
-            />
-  
-            <Button type_=(Button.Submit)>
-              (ReasonReact.string("Submit"))
-            </Button>
-          </form>
-        </div>
+        <form
+          className="brand-namer-form"
+          onSubmit=(event => {
+            ReactEventRe.Form.preventDefault(event);
+            send(Submit);
+          })
+          noValidate=(true)
+        >
+          <Field
+            label=""
+            className="brand-namer-form__field"
+            component=(<Input placeholder="Choose your possible name" className="brand-namer-form__input" onChange=(value => send(Change(value))) />)
+          />
+
+          <Button type_=(Button.Submit) className="brand-namer-form__submit-button">
+            (ReasonReact.string("Submit"))
+          </Button>
+        </form>
       )
     }
   }

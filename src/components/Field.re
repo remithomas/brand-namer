@@ -1,11 +1,15 @@
 let componentField = ReasonReact.statelessComponent("Field");
 
 let make = (
-  ~label: string = "", ~component: ReasonReact.reactElement, _children) => {
+  ~label: string = "",
+  ~component: ReasonReact.reactElement,
+  ~className =  "",
+  _children
+) => {
   ...componentField,
 
   render: (_self) =>
-    <div className="field">
+    <div className=("field " ++ className)>
       <label>
         (ReasonReact.string(label))
         {component}

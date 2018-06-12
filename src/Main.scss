@@ -2,6 +2,9 @@
 @import 'BrandNamerApp';
 @import 'components/**/*.scss';
 
+@import url('https://fonts.googleapis.com/css?family=Alfa+Slab+One|Montserrat');
+
 body {
   background: $backgroundColor;
+  font-family: 'Montserrat', sans-serif;
 }

@@ -1,0 +1,26 @@
+.brand-namer-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.brand-namer-form__input {
+  border: $availableColor 1px solid;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.brand-namer-form__submit-button {
+  background: $availableColor;
+  border: $availableColor 1px solid;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba($availableColor, 0.8);
+    border-color: rgba($availableColor, 0.8);
+  }
+}
