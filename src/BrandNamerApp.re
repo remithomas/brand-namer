@@ -5,7 +5,7 @@ let make = (_children) => {
   render: (_self) =>
     <div className="brand-namer-app">
       <div className="brand-namer-app__container">
-        <Title title="Brand Namer" />
+        <Title />
         <BrandNamer />
       </div>
     </div>

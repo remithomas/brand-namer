@@ -15,6 +15,8 @@ let component = ReasonReact.reducerComponent("Input");
 
 let make = (
   ~onChange,
+  ~placeholder="",
+  ~className="",
   _children
 ) => {
   ...component,
@@ -38,8 +40,9 @@ let make = (
     <div className="input">
       <input
         ref=(handle(setValueFieldRef))
-        className=(bem(~block="input", ~element="input", ()))
+        className=(bem(~block="input", ~element="input", ()) ++ " " ++ className)
         value=state.value
+        placeholder=placeholder
         onChange=(
           event =>
             send(

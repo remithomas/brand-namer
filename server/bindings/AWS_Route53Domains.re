@@ -37,7 +37,6 @@ type errorResponse = {
   retryDelay: float,
 };
 
-/* type callback = ((Js.Nullable.t(exn), Js.Nullable.t(response)) => unit); */
 type callback = ((Js.Nullable.t(errorResponse), Js.Nullable.t(response)) => unit);
 
 exception Route53DomainsError(string);

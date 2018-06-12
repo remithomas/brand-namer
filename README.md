@@ -70,7 +70,10 @@ This is simple, you ask a name and the API send you some possible translations a
 - [X] Api ask if domain exists (route 53)
 - [X] Api ask if facebook name exists
 - [ ] Handle error from aws (improvement)
-- [ ] A bit of design (check mark etc...)
+- [X] A bit of design (check mark etc...)
+- [ ] Get synonyms before translations
+- [ ] Rewrite GoogleTranslateConfig like AWSRoute53Config
+- [ ] Show some definition (from any thesorus)
 
 ## Thanks
 

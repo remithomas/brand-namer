@@ -6,7 +6,11 @@ type buttonType =
   | Button
   | Submit;
 
-let make = (~type_: buttonType = Button, children) => {
+let make = (
+  ~type_: buttonType = Button,
+  ~className="",
+  children
+) => {
   ...component,
 
   render: (_self) => {
@@ -16,12 +20,14 @@ let make = (~type_: buttonType = Button, children) => {
       | Submit => "submit"
       };
 
+    let bemClasses = bem(
+      ~block="button",
+      ~modifiers=[String(theButtonType)],
+      ()
+    );
+
     (
-      <button className=(bem(
-        ~block="button",
-        ~modifiers=[String(theButtonType)],
-        ()
-      )) _type=theButtonType>
+      <button className=(bemClasses ++ " " ++ className) _type=theButtonType>
         <div className="button-wrapper">
           {children[0]}
         </div>
