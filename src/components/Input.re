@@ -40,7 +40,7 @@ let make = (
     <div className="input">
       <input
         ref=(handle(setValueFieldRef))
-        className=(bem(~block="input", ~element="input", ()) ++ " " ++ className)
+        className=(bem(~block="input", ~element="input", ~others=className, ()))
         value=state.value
         placeholder=placeholder
         onChange=(
