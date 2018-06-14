@@ -9,7 +9,7 @@ let make = (~suggestion: Suggestion.t, _children) => {
     let itemCssClasses = bem(
       ~block="suggestion-item",
       ~modifiers=[
-        Boolean("available", suggestion.hasAvailableFacebookName && suggestion.hasAvailableDomain)
+        Switch("available", "unavailable", suggestion.hasAvailableFacebookName && suggestion.hasAvailableDomain)
       ],
       ()
     );

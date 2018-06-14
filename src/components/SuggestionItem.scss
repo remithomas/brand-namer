@@ -17,6 +17,14 @@
   }
 }
 
+.suggestion-item--unavailable {
+  background: rgba($unavailableColor, 0.1);
+
+  &:nth-child(even) {
+    background: rgba($unavailableColor, 0.25);
+  }
+}
+
 .suggestion-item__translation {
   flex: 1;
 }

@@ -23,11 +23,12 @@ let make = (
     let bemClasses = bem(
       ~block="button",
       ~modifiers=[String(theButtonType)],
+      ~others=className,
       ()
     );
 
     (
-      <button className=(bemClasses ++ " " ++ className) _type=theButtonType>
+      <button className=bemClasses _type=theButtonType>
         <div className="button-wrapper">
           {children[0]}
         </div>
