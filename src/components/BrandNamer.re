@@ -21,6 +21,12 @@ let findBySuggest = (suggest, suggestions) => {
   List.find((item: Suggestion.t) => item.suggest === suggest, suggestions)
 };
 
+let replaceItemUsingSuggestTerm = (item, list, suggest) => {
+  List.map((suggestion: Suggestion.t) => {
+    (suggestion.suggest === suggest) ? item : suggestion;
+  }, list);
+};
+
 let make = (_children) => {
   let handleSubmitFormHelper = (term, send) => {
     send(ResetSuggestions);
@@ -48,11 +54,22 @@ let make = (_children) => {
         | AddTranslation(translation) => state => {
           let newSuggestionList = switch(findByTranslation(translation, state.suggestions)) {
           /* Add language in list  */
-          | _item => state.suggestions
-          | exception Not_found => {
-            let suggestion = Suggestion.makeFromTranslation(translation);
-            [suggestion, ...state.suggestions];
+          | item => {
+            let languages = [translation.language, ...item.languages];
+            let newItem = {
+              ...item,
+              languages: languages,
+            };
+
+            replaceItemUsingSuggestTerm(newItem, state.suggestions, translation.translation);
+            /* replace item */
+            /* languages */
+            /* state.suggestions; */
           }
+          | exception Not_found => {
+              let suggestion = Suggestion.makeFromTranslation(translation);
+              [suggestion, ...state.suggestions];
+            }
           };
 
           ReasonReact.Update({
@@ -92,16 +109,16 @@ let make = (_children) => {
 
       (
         <div className="brand-namer">
-        <BrandNamerForm
-          onSubmit=(value => {
-            handleSubmitFormHelper(value, send) |> ignore
-          })
-        />
+          <BrandNamerForm
+            onSubmit=(value => {
+              handleSubmitFormHelper(value, send) |> ignore
+            })
+          />
 
-        <SuggestionsList
-          suggestions=suggestions
-        />
-      </div>
+          <SuggestionsList
+            suggestions=suggestions
+          />
+        </div>
       );
     }
   }
